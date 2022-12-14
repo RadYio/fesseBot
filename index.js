@@ -1,17 +1,31 @@
+//importation du module discord.js
 const Discord = require('discord.js');
 
-const bot = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
+//création d'un nouveau client discord
+const client = new Discord.Client({ intents: 1 })
 
-bot.on('ready', () => {
-    bot.log(`Connecté en tant que ${bot.user.tag}!`);
+//Récupération du token dans le fichier
+const fs = require('fs')
+const token = fs.readFileSync('token.token', 'utf8')
+console.log(`Token trouvé:  ${token}!`);
+
+//quand le client est prêt:
+client.on('ready', () => {
+    console.log(`Connecté en tant que ${client.user.tag}!`);
 });
 
-bot.on('message', msg => {
+//quand le client reçoit un message:
+client.on('message', msg => {
+  console.log(`je recois un message: ${msg.content}!\n`);
   if (msg.content === 'ping') {
     msg.reply('pong');
   }
+  if (msg.content === 'fesse') {
+    msg.reply('fesse');
+  }
 });
 
-bot.login('Nzg4MDYxNDY1MjAyNTI0MTYx.Gl6w4n.0ty5hN3fEM4j1z7jjjCMVc-MrgE_FhGnGfQR44');
 
 
+//connexion du client bot
+client.login(token);
