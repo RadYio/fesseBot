@@ -12,7 +12,10 @@ console.log(`Token trouvé:  ${token}!`);
 //quand le client est prêt:
 client.on('ready', () => {
     console.log(`Connecté en tant que ${client.user.tag}!`);
+    const channel = client.channels.cache.get('892842167226208328');
+    channel.send('Je suis connecté!');
 });
+
 
 //quand le client reçoit un message:
 client.on('message', msg => {
@@ -23,6 +26,10 @@ client.on('message', msg => {
   }
 });
 
+client.on('disconnect', message => {
+  const channel = client.channels.cache.get('892842167226208328');
+  channel.send('Je suis pars!');
+});
 
 
 //connexion du client bot
