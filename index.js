@@ -17,9 +17,7 @@ client.on('ready', () => {
 //quand le client reçoit un message:
 client.on('message', msg => {
   console.log(`je recois un message: ${msg.content}!\n`);
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-  }
+  
   if (msg.content === 'fesse') {
     msg.reply('fesse');
   }
