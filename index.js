@@ -27,7 +27,20 @@ client.on('ready', () => {
 //quand le client reçoit un message:
 client.on('messageCreate', msg => {
   if( debug ) console.log(`Message de {${msg.author.username}}: ${msg.content}`);
-  
+
+  //On ajoute un pouce à tous les messages qui contienne le mot ratio
+  if (msg.content.toLocaleLowerCase().includes('ratio')) {
+    msg.react('👍');
+  }
+
+  //Si c'est arthur qu'il parle on le ratio (mérité)
+  if (msg.author.id === '353648597671215105'){
+    msg.reply('Ratio');
+  }
+
+  if (debug) console.log(msg.author);
+
+
   //On verifie que le message est destiné au bot
   if(msg.mentions.users.first() === client.user){
     //On transforme en le message pour ne garder que le contenu sans la mention
@@ -37,7 +50,7 @@ client.on('messageCreate', msg => {
 
     //On fait les tests sur le messages
     if(texte.toLowerCase() === 'bonjour'){
-      msg.reply('Bonjour!');
+      msg.reply('Bonjour !');
     }
   }
 });
