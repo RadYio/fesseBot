@@ -1,5 +1,12 @@
+/**
+ * @file deploiement-commande.js
+ * @description Permet de déployer les commandes sur le serveur guildId du fichier config.json
+ * @author RadYio
+ * @version 1.0.0
+ */
+
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId, token } = require('./config.json');
+const { clientId, token, guildId } = require('./config.json');
 const fs = require('node:fs');
 
 const liste_commande = [];
@@ -11,23 +18,24 @@ for (const fichier of fichiers_de_commande) {
 	liste_commande.push(commande.data.toJSON());
 }
 
-// Construct and prepare an instance of the REST module
+// Creation d'une instance de REST et configuration du token
 const rest = new REST({ version: '10' }).setToken(token);
 
-// and deploy your commands!
+
+//fonction anonyme auto-executable pour deployer les commandes sur le serveur
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log(`Started refreshing ${liste_commande.length} application (/) commands.`);
 
-		// The put method is used to fully refresh all commands in the guild with the current set
+		// On utilise la methode put pour mettre a jour les commandes uniquement sur le serveur guildId
 		const data = await rest.put(
 			Routes.applicationGuildCommands(clientId, guildId),
-			{ body: commands },
+			{ body: liste_commande },
 		);
 
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 	} catch (error) {
-		// And of course, make sure you catch and log any errors!
+		// log les erreurs dans la console (todo)
 		console.error(error);
 	}
 })();
