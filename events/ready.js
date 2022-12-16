@@ -7,6 +7,7 @@ module.exports = {
 	execute(client) {
 		console.log(`Connecté en tant que ${client.user.tag}!`);
         const channel = client.channels.cache.get(channelId);
-        channel.send('Hello!!');
+        ts = new Date(client.readyTimestamp);
+        channel.send(ts.getHours() + ':' + ts.getMinutes() + ':' + ts.getSeconds() + ' -- Lancement');
 	},
 };
