@@ -1,18 +1,19 @@
 /**
  * @file index.js
  * @description Le fichier principal du bot
- * @version 0.0.2
+ * @version 0.1.0
  * @author RadYio
 */
 
-
+//importation du module fs
+const fs = require('fs');
 //importation du module discord.js
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 //création d'un nouveau client discord
 const client = new Client({ intents: 131027 });
 
 //recuperation du token dans le fichier config.json
-const { token, channelId, ownerId } = require('./config.json');
+const { token, channelId } = require('./config.json');
 if (!token) {
   console.log('Veuillez remplacer le token par le votre dans le fichier config.json');
   process.exit();
@@ -20,17 +21,14 @@ if (!token) {
 console.log(`Token trouvé:  ${token}!`);
 
 
-//importation du module fs
-const fs = require('fs')
-
 
 
 //Récupération des commandes
 client.commandes = new Collection();
 
-const fichiers_de_commande = fs.readdirSync('./commands').filter(fichier => fichier.endsWith('.js'));
+const fichiers_de_commande = fs.readdirSync('./commandes').filter(fichier => fichier.endsWith('.js'));
 for (const fichier of fichiers_de_commande) {
-  const commande = require(`./commands/${fichier}`);
+  const commande = require(`./commandes/${fichier}`);
   client.commandes.set(commande.data.name, commande);
 }
 
