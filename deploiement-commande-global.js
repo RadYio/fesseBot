@@ -11,10 +11,10 @@ const fs = require('node:fs');
 
 const liste_commande = [];
 // Recupération de tous les fichiers dans le dossier commande
-const fichiers_de_commande = fs.readdirSync('./commands').filter(fichier => fichier.endsWith('.js'));
+const fichiers_de_commande = fs.readdirSync('./commandes').filter(fichier => fichier.endsWith('.js'));
 
 for (const fichier of fichiers_de_commande) {
-	const commande = require(`./commands/${fichier}`);
+	const commande = require(`./commandes/${fichier}`);
 	liste_commande.push(commande.data.toJSON());
 }
 
@@ -25,7 +25,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 //fonction anonyme auto-executable pour deployer les commandes sur tous les serveurs
 (async () => {
 	try {
-		console.log(`Started refreshing ${liste_commande.length} application (/) commands.`);
+		console.log(`Started refreshing ${liste_commande.length} application (/) commandes.`);
 
 		// On utilise la methode put pour mettre a jour les commandes sur tous les serveurs
 		const data = await rest.put(
@@ -33,7 +33,7 @@ const rest = new REST({ version: '10' }).setToken(token);
             { body: liste_commande },
         );
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+		console.log(`Successfully reloaded ${data.length} application (/) commandes.`);
 	} catch (error) {
 		// log les erreurs dans la console (todo)
 		console.error(error);
