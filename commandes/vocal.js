@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('[beta] crée un salon vocal et le bot rejoint ce salon'),
 	async execute(interaction) {
         await interaction.deferReply({ephemeral: true});
-        const nom_salon = interaction.user.username + '_fesse';
+        const nom_salon = 'fesseBot -- ' + interaction.user.username;
 		const salon = await interaction.guild.channels.create({
             name: nom_salon,
             type: ChannelType.GuildVoice,
@@ -24,7 +24,7 @@ module.exports = {
             channelId: interaction.guild.channels.cache.find(channel => channel.name === nom_salon).id,
             guildId: interaction.guild.id,
             adapterCreator: interaction.guild.voiceAdapterCreator,
-        });
+        }); 
 
         setTimeout(() => {interaction.deleteReply()}, 5000);
         
