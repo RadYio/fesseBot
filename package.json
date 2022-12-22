@@ -1,5 +1,28 @@
 {
   "dependencies": {
-    "discord.js": "^14.7.1"
-  }
+    "@discordjs/opus": "^0.8.0",
+    "@discordjs/voice": "^0.14.0",
+    "discord.js": "^14.7.1",
+    "ffmpeg-static": "^5.1.0",
+    "libsodium-wrappers": "^0.7.10",
+    "sodium": "^3.0.2"
+  },
+  "name": "fessebot",
+  "description": "Un bot discord crée dans le but de découvrir les possibilités que discord offre via ses apis. Qui vous offre des fonctionalités de fou",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RadYio/fesseBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RadYio/fesseBot/issues"
+  },
+  "homepage": "https://github.com/RadYio/fesseBot#readme"
 }
