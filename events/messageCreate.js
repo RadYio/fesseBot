@@ -14,7 +14,7 @@ module.exports = {
                 interaction.reply('https://instagram.frns1-1.fna.fbcdn.net/v/t51.2885-15/300599829_1708577599520104_4659010997660154779_n.jpg?stp=dst-jpg_e35&_nc_ht=instagram.frns1-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=dD-qu7FDnE0AX8FDd6R&edm=ABmJApABAAAA&ccb=7-5&ig_cache_key=MjkxMTI3MzM2MDAzODY1OTg3NQ%3D%3D.2-ccb7-5&oh=00_AfBmcwaEt3G4uJqZFSnaZLA1NOCBcPnbmgpDY5B-zf7bZA&oe=63A02F54&_nc_sid=6136e7');
             }else if(interaction.author.id === '281571816848228352'){ //alexis
                 interaction.react('🏳️‍🌈');
-                interaction.reply('https://cdn.discordapp.com/attachments/798534870301016074/1053085054219337778/unknown.png')
+                interaction.reply('||test||', {files: "./image/alexispic.png"});
             }else{
                 interaction.react(interaction.guild.emojis.cache.find(emoji => emoji.name === 'gronin'));
             }
