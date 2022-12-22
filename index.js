@@ -10,7 +10,17 @@ const fs = require('fs');
 //importation du module discord.js
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 //création d'un nouveau client discord
-const client = new Client({ intents: 131027 });
+const client = new Client({ intents: [
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMembers,
+  GatewayIntentBits.GuildEmojisAndStickers,
+  GatewayIntentBits.GuildVoiceStates,
+  GatewayIntentBits.GuildPresences,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.GuildMessageReactions,
+  GatewayIntentBits.GuildMessageTyping,
+  GatewayIntentBits.MessageContent,
+] });
 
 //recuperation du token dans le fichier config.json
 const { token, channelId } = require('./config.json');
