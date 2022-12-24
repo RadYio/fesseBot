@@ -31,7 +31,7 @@ module.exports = {
         .addUserOption(option => option.setName('user').setDescription('Utilisateur à mettre à jour').setRequired(true)),
 
 	async execute(interaction) {
-		//await interaction.deferReply({ephemeral: true});
+		console.log(interaction.user.username + ' --> ' + interaction.options.getUser('user').username);
         const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
