@@ -63,25 +63,23 @@ module.exports = {
             }
 
         await interaction.reply({content: 'Recherche dans la base de données', ephemeral: true});
-        const user = await Gays.findOne({ where: { gayId: interaction.options.getUser('user').id } });
-        if(!user){
+        let leGay = await Gays.findOne({ where: { gayId: interaction.options.getUser('user').id } });
+        if(!leGay){
             const nouveauGay = await Gays.create({
                 gayId: interaction.options.getUser('user').id,
                 gayPuissance: 0, 
                 gayNom: interaction.options.getUser('user').username 
             });
-            
+            leGay = await Gays.findOne({ where: { gayId: interaction.options.getUser('user').id } });
         }else{
             //On met à jour le pseudo de l'utilisateur dans la base de données
-            user.update({gayNom: interaction.options.getUser('user').username})
+            leGay.update({gayNom: interaction.options.getUser('user').username})
         }
         //On affiche le score gay + les choix
-        await interaction.editReply({content: user.gayNom + ' a ' + user.gayPuissance + ' points gay', components: [row], ephemeral: true});
+        await interaction.editReply({content: interaction.options.getUser('user').username + ' a ' + leGay.gayPuissance + ' points gay', components: [row], ephemeral: true});
         
         //Fin de la création du bouton
 
-
-        
 
 
         
@@ -94,9 +92,9 @@ module.exports = {
         collector.on('collect', async i => {
             await i.deferUpdate();
             
-            if (i.customId === 'ajouter')   user.increment('gayPuissance');
-            if (i.customId === 'retirer')   user.decrement('gayPuissance');
-            if (i.customId === 'reset')     user.update({gayPuissance: 0});
+            if (i.customId === 'ajouter')   leGay.increment('gayPuissance');
+            if (i.customId === 'retirer')   leGay.decrement('gayPuissance');
+            if (i.customId === 'reset')     leGay.update({gayPuissance: 0});
             await i.editReply({content: 'Base de données mise à jour', components: [], ephemeral: true})
         });
 
