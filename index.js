@@ -22,6 +22,10 @@ const client = new Client({ intents: [
   GatewayIntentBits.MessageContent,
 ] });
 
+
+
+
+
 //recuperation du token dans le fichier config.json
 const { token, channelId } = require('./config.json');
 if (!token) {
