@@ -1,7 +1,22 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, AttachmentBuilder } = require('discord.js');
 const { ownerId } = require('../config.json');
+const Canvas = require('@napi-rs/canvas');
+const { request } = require('undici');
 
 const delai = 15000; //15 secondes
+
+//afin d'adapter la taille du texte avec le canvas
+const applyText = (canvas, text) => {
+	const context = canvas.getContext('2d');
+	let fontSize = 70;
+
+	do {
+		context.font = `${fontSize -= 10}px sans-serif`;
+	} while (context.measureText(text).width > canvas.width - 300);
+
+	return context.font;
+};
+
 
 const Sequelize = require('sequelize');
 const BDD = new Sequelize('bddgay', 'user', 'password', {
@@ -75,9 +90,48 @@ module.exports = {
             //On met à jour le pseudo de l'utilisateur dans la base de données
             leGay.update({gayNom: interaction.options.getUser('user').username})
         }
-        //On affiche le score gay + les choix
-        await interaction.editReply({content: interaction.options.getUser('user').username + ' a ' + leGay.gayPuissance + ' points gay', components: [row], ephemeral: true});
+        interaction.editReply({content: 'Recherche dans la base de données.', ephemeral: true})
         
+        const canvas = Canvas.createCanvas(700, 250);
+		const context = canvas.getContext('2d');
+        const background = await Canvas.loadImage('./image/fond.jpg');
+        context.drawImage(background, 0, 0, canvas.width, canvas.height);
+        
+        interaction.editReply({content: 'Recherche dans la base de données..', ephemeral: true})
+
+        const logobdd = await Canvas.loadImage('./image/logobdd.png');
+	    context.drawImage(logobdd, canvas.width-200, canvas.height-80, 195, 80);
+
+        interaction.editReply({content: 'Recherche dans la base de données...', ephemeral: true})
+
+        context.strokeRect(0, 0, canvas.width, canvas.height);
+
+        context.font = applyText(canvas, interaction.options.getUser('user').username);
+	    context.fillStyle = '#ffffff';
+	    context.fillText(interaction.options.getUser('user').username, canvas.width / 2.5, canvas.height / 2.8);
+
+        interaction.editReply({content: 'Recherche dans la base de données.', ephemeral: true})
+
+        context.fillStyle = '#bb3093';
+        context.font = applyText(canvas, leGay.gayPuissance + ' points');
+        context.fillText(leGay.gayPuissance + ' points', canvas.width / 2.5, canvas.height / 1.5);
+
+        interaction.editReply({content: 'Recherche dans la base de données..', ephemeral: true})
+        
+        context.beginPath();
+        context.arc(125, 125, 100, 0, Math.PI * 2, true);
+        context.closePath();
+	    context.clip();
+
+        const { body } = await request(interaction.options.getUser('user').displayAvatarURL({extension: 'png'}));
+        const avatar = await Canvas.loadImage(await body.arrayBuffer());
+        
+        context.drawImage(avatar, 25, 25, 200, 200);
+
+        interaction.editReply({content: 'Recherche dans la base de données...', ephemeral: true})
+
+        const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: 'profile-image.png' });
+        interaction.editReply({content: '', files: [attachment], components: [row] });
         //Fin de la création du bouton
 
 
@@ -98,9 +152,9 @@ module.exports = {
             await i.editReply({content: 'Base de données mise à jour', components: [], ephemeral: true})
         });
 
-        collector.on('end', collected => {
-            console.log(`Récupération de ${collected.size} interactions.`);
-        });
+        //collector.on('end', collected => {
+        //    console.log(`Récupération de ${collected.size} interactions.`);
+        //});
         setTimeout(() => {interaction.deleteReply()}, delai);
 
 	},
