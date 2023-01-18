@@ -141,7 +141,7 @@ module.exports = {
 
         //Détection du bouton
         const filter = i => i.customId === 'ajouter' || i.customId === 'retirer' || i.customId === 'reset';
-		const collector = interaction.channel.createMessageComponentCollector({ filter, max: 1, time: delai + 1000});
+		const collector = interaction.channel.createMessageComponentCollector({ filter, max: 10, time: delai + 1000});
         
         collector.on('collect', async i => {
             await i.deferUpdate();
