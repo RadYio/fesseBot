@@ -23,7 +23,7 @@ module.exports = {
             }
         }
 
-        Si c'est arthur qui parle on le ratio (mérité)
+        //Si c'est arthur qui parle on le ratio (mérité)
         if (interaction.author.id === '353648597671215105') interaction.reply('Merci Dieu');
 
         //On regarde si le bot est mentionné
