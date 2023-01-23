@@ -7,7 +7,10 @@ module.exports = {
         //On ajoute un pouce à tous les messages qui contienne le mot ratio
         msg = interaction;
         if (interaction.content.toLocaleLowerCase().includes('ratio')) msg.react('👍');
-
+	
+	//On va se marrer et répondre feur
+	if (interaction.content.toLocaleLowerCase().includes('quoi'))  interaction.reply('feur je crois');
+	if (interaction.content.toLocaleLowerCase().includes('QUOI'))  interaction.reply('FEUR');
         //Le but originel de ce bot
         if (interaction.content.toLocaleLowerCase().includes('fesse')) {
             if (interaction.author.id === ownerId){
@@ -20,8 +23,8 @@ module.exports = {
             }
         }
 
-        //Si c'est arthur qui parle on le ratio (mérité)
-        //if (interaction.author.id === '353648597671215105') interaction.reply('Ratio');
+        Si c'est arthur qui parle on le ratio (mérité)
+        if (interaction.author.id === '353648597671215105') interaction.reply('Merci Dieu');
 
         //On regarde si le bot est mentionné
         if(interaction.mentions.users.has(interaction.client.user.id)){
