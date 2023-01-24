@@ -10,7 +10,6 @@ module.exports = {
 	
 	//On va se marrer et répondre feur
 	if (interaction.content.toLocaleLowerCase().includes('quoi'))  interaction.reply('feur je crois');
-	if (interaction.content.toLocaleLowerCase().includes('QUOI'))  interaction.reply('FEUR');
         //Le but originel de ce bot
         if (interaction.content.toLocaleLowerCase().includes('fesse')) {
             if (interaction.author.id === ownerId){
