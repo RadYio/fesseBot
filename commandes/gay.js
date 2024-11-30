@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Attac
 const { ownerId } = require('../config.json');
 const Canvas = require('@napi-rs/canvas');
 const { request } = require('undici');
-
+const Gays = global.tablePersonne;
 const delai = 15000; //15 secondes
 
 //afin d'adapter la taille du texte avec le canvas
@@ -18,23 +18,7 @@ const applyText = (canvas, text) => {
 };
 
 
-const Sequelize = require('sequelize');
-const BDD = new Sequelize('bddgay', 'user', 'password', {
-  host: 'localhost',
-  dialect: 'sqlite',
-  logging: false,
-  storage: 'bddgay.sqlite',
-  });
 
-const Gays = BDD.define('Gays', {
-  gayId: {
-    type: Sequelize.INTEGER,
-    unique: true,
-  },
-  gayNom: Sequelize.STRING,
-  gayPuissance: Sequelize.INTEGER,
-
-});
 Gays.sync();
 
 

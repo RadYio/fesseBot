@@ -1,7 +1,7 @@
 /**
  * @file index.js
  * @description Le fichier principal du bot
- * @version 0.1.0
+ * @version 0.1.1
  * @author RadYio
 */
 
@@ -22,8 +22,10 @@ const client = new Client({ intents: [
   GatewayIntentBits.MessageContent,
 ] });
 
-
-
+//A changer pour module export
+const { Personne, Serveur} = require('./bdd.js');
+global.tablePersonne = Personne;
+global.tableServeur = Serveur;
 
 
 //recuperation du token dans le fichier config.json
